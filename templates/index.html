@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="top-section padding">
+            <form class="padding border" method="POST">
+                <input type="search" name="location" id="search" placeholder="Search Location" class="border padding" required>
+                <input type="submit" id="submit" value="search" class="border padding">
+            </form>
+
+            {% if weather_data %}
+            <div class="weather-container border">
+                <div class="city padding border">
+                    <div>
+                        <h2 class="city-title">{{ weather_data['resolved_address'] }}</h2>
+                        <p class="city-date">{{ weather_data['date'] }}</p>
+                    </div>
+                    <h1 class="local-time">{{ weather_data['local_time'] }}</h1>
+                </div>
+                
+                <div class="weather-degree-icon padding border">
+                    <h1 class="weather-degree">{{ weather_data['temp'] }}</h1>
+                    <img src="{{ weather_data['icon'] }}" alt="weather icon" id="weather-icon">
+                </div>   
+            </div>
+            <div class="bottom-section padding">
+                <div class="weather-details padding border">
+                    <h2 class="details">Today's weather details</h2>
+                    <div class="details-container">
+                        <div class="details-icon-text">
+                            <img src="{{ url_for('static', filename='svgs/weather-wind-svgrepo-com.svg') }}" alt="wind direction icon" class="svg">
+                            <p>Wind Direction</p>
+                        </div>
+                        <p id="wind-direction">{{ weather_data['wind_dir'] }}</p>
+                    </div>
+                    <div class="details-container">
+                        <div class="details-icon-text">
+                            <img src="{{ url_for('static', filename='svgs/wind-svgrepo-com.svg') }}" alt="wind speed icon" class="svg">
+                            <p>Wind Speed</p>
+                        </div>
+                        <p id="wind-speed">{{ weather_data['wind_speed'] }}</p>
+                    </div>
+                    <div class="details-container">
+                        <div class="details-icon-text">
+                            <img src="{{ url_for('static', filename='svgs/humidity-svgrepo-com.svg') }}" alt="Air humidity icon" class="svg">
+                            <p>Air Humidity</p>
+                        </div>
+                        <p id="air-humidity">{{ weather_data['humidity'] }}</p>
+                    </div>
+                    <div class="details-container">
+                        <div class="details-icon-text">
+                            <img src="{{ url_for('static', filename='svgs/moisture-svgrepo-com.svg') }}" alt="Dew Icon" class="svg">
+                            <p>Dew</p>
+                        </div>
+                        <p id="dew">{{ weather_data['dew'] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
